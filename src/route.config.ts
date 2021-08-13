@@ -6,7 +6,7 @@ const registerRoute = (config) => {
       route.push({
         name: page.name,
         path: page.path,
-        component: import.meta.glob(`./pages${page.path}`),
+        component: import(`./pages${page.path}`),
         meta: {
           title: page.title || page.name,
           description: page.description
