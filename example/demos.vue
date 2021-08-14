@@ -1,8 +1,22 @@
 <template>
-  <section class="page-demo">
+  <!-- <section class="page-demo">
     <div>demos 页</div>
     <div v-for="(group, index) in navs" :key="index">
-      {{ group.name }}
+      {{ group.title }}
+    </div>
+  </section> -->
+    <section class="page-demo">
+    <div v-for="(group, index) in navs" :key="index">
+      <div class="page-title" v-text="group.title"></div>
+      <!-- <mt-cell
+        v-for="item in group.list"
+        :to="item.path"
+        is-link>
+        <div slot="title">
+          <i :class="['indexicon', 'icon-' + item.icon]"></i>
+          <span>{{ item.name }}</span>
+        </div>
+      </mt-cell> -->
     </div>
   </section>
 </template>
@@ -13,7 +27,7 @@ import { defineComponent } from "vue";
 import { navs } from "../src/route.config";
 export default defineComponent({
   name: "Demos",
-  data() {
+  data() {    
     return {
       navs,
     };
