@@ -23,6 +23,7 @@ module.exports = {
                 utility: 'util'
             }
         }),
-        require("precss")
+        require("precss"),
+        require('postcss-short')
     ]
 }
