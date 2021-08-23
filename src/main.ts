@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import routes from './route.config';
 import { createRouter, createWebHashHistory } from 'vue-router'
+import Cell from '../packages/cell';
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -9,5 +10,6 @@ const router = createRouter({
 })
 
 const app = createApp(App)
+app.component(Cell.name, Cell)
 app.use(router)
 app.mount('#app')

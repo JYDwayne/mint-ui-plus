@@ -21,6 +21,8 @@ export default defineComponent({
     background-color: #fafafa;
     -webkit-overflow-scrolling: touch;
     user-select: none;
+    padding: 0;
+    margin: 0;
   }
 
   a {

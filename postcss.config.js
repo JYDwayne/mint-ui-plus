@@ -12,6 +12,17 @@ module.exports = {
             ],
             grid: true
         }),
-        require("postcss-nested")
+        require("postcss-nested"),
+        require("postcss-bem-fix")({
+            defaultNamespace: undefined,
+            style: 'suit',
+            separators: {
+                descendent: '__'
+            },
+            shortcuts: {
+                utility: 'util'
+            }
+        }),
+        require("precss")
     ]
 }
