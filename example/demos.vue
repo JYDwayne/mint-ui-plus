@@ -9,13 +9,16 @@
     <div v-for="(group, index) in navs" :key="index">
       <div class="page-title" v-text="group.title"></div>
       <mt-cell
-        v-for="item in group.list"
+        v-for="(item, groupIndex) in group.list"
+        :key="item.name + groupIndex"
         :to="item.path"
         is-link>
-        <div slot="title">
-          <i :class="['indexicon', 'icon-' + item.icon]"></i>
-          <span>{{ item.name }}</span>
-        </div>
+        <template v-slot:title>
+          <div>
+            <i :class="['indexicon', 'icon-' + item.icon]"></i>
+            <span>{{ item.name }}</span>
+          </div>
+        </template>
       </mt-cell>
     </div>
   </section>

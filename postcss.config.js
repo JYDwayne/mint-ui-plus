@@ -17,7 +17,7 @@ module.exports = {
             defaultNamespace: undefined,
             style: 'suit',
             separators: {
-                descendent: '__'
+                descendent: '-'
             },
             shortcuts: {
                 utility: 'util'

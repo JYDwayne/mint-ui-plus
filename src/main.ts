@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import App from './App.vue'
+import App from './app.vue'
 import routes from './route.config';
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Cell from '../packages/cell';
