@@ -67,17 +67,17 @@ export default defineComponent({
 
   computed: {
     href() {
-    //   if (this.to && !this.added && this.$router) {
-    //     const resolved = this.$router.match(this.to);
-    //     if (!resolved.matched.length) return this.to;
+      if (this.to && !this.added && this.$router) {
+        const resolved = this.$router.resolve(this.to);
+        if (!resolved.matched.length) return this.to;
 
-    //     this.$nextTick(() => {
-    //       this.added = true;
-    //       this.$el.addEventListener('click', this.handleClick);
-    //     });
-    //     return resolved.fullPath || resolved.path;
-    //   }
-    //   return this.to;
+        this.$nextTick(() => {
+          this.added = true;
+          this.$el.addEventListener('click', this.handleClick);
+        });
+        return resolved.fullPath || resolved.path;
+      }     
+      return this.to;
     }
   },
 

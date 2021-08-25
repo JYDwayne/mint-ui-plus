@@ -1,10 +1,4 @@
 <template>
-  <!-- <section class="page-demo">
-    <div>demos 页</div>
-    <div v-for="(group, index) in navs" :key="index">
-      {{ group.title }}
-    </div>
-  </section> -->
   <section class="page-demo">
     <div v-for="(group, index) in navs" :key="index">
       <div class="page-title" v-text="group.title"></div>

@@ -1,5 +1,10 @@
 <template>
-  <router-view></router-view>
+  <div>
+    <router-link class="page-back" v-if="visible" :to="'/'">
+      <i class="mintui mintui-back"></i>
+    </router-link>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script lang="ts">
@@ -12,6 +17,11 @@ export default defineComponent({
   components: {
     RouterView,
   },
+  computed: {
+      visible() {
+        return ['/', '/header', '/search'].indexOf(this.$route.path) < 0;
+      }
+    }
 });
 </script>
 

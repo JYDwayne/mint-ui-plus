@@ -6,7 +6,7 @@ const registerRoute = (config) => {
       route.push({
         name: page.name,
         path: page.path,
-        component: import(`./pages${page.path}`),
+        component: import(`../example/pages${page.path}.vue`),
         meta: {
           title: page.title || page.name,
           description: page.description
