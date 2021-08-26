@@ -17,6 +17,7 @@
     "autoprefixer": "^10.3.2",
     "postcss": "^8.3.6",
     "postcss-bem-fix": "^2.1.0",
+    "postcss-css-reset": "^1.0.2",
     "postcss-nested": "^5.0.6",
     "postcss-scss": "^4.0.0",
     "postcss-short": "^5.0.0",

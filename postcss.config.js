@@ -24,6 +24,7 @@ module.exports = {
             }
         }),
         require("precss"),
-        require('postcss-short')
+        require('postcss-short'),
+        require('postcss-css-reset')({ /* options */ })
     ]
 }

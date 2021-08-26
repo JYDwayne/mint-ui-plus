@@ -1,9 +1,9 @@
-import { createApp } from 'vue'
-import App from './app.vue'
+import { createApp } from 'vue';
+import App from './app.vue';
 import routes from './route.config';
-import { createRouter, createWebHashHistory } from 'vue-router'
-import Cell from '../packages/cell';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import '../src/assets/font/iconfont.css';
+import {install as Mint} from '../src/index';
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -11,6 +11,8 @@ const router = createRouter({
 })
 
 const app = createApp(App)
-app.component(Cell.name, Cell)
+
 app.use(router)
+app.use(Mint);
+
 app.mount('#app')

@@ -22,9 +22,8 @@ const route = registerRoute(NavConfig);
 
 route.route.push({
   path: '/',
-  component: () => import('#/demos.vue')
+  component: () => import('example/demos.vue')
 });
-// console.log(import.meta.glob('../example/demos.vue'));
 
 export const navs = route.navs;
 export default route.route;
