@@ -1,5 +1,5 @@
 <template>
-  <transition name="mint-toast-pop">
+  <transition name="mint-toast-pop" @before-leave="onClose" @after-leave="$emit('destroy')">
     <div class="mint-toast" v-show="visible" :class="customClass" :style="{ 'padding': iconClass === '' ? '10px' : '20px' }">
       <i class="mint-toast-icon" :class="iconClass" v-if="iconClass !== ''"></i>
       <span class="mint-toast-text" :style="{ 'padding-top': iconClass === '' ? '0' : '10px' }">{{ message }}</span>
@@ -58,11 +58,17 @@
 </style>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref, onMounted, PropType } from "vue";
 
   export default defineComponent({
+    name: 'Toast',
+    emits: ['destroy'],
     props: {
       message: String,
+      duration: {
+        type: Number,
+        default: 3000
+      },
       className: {
         type: String,
         default: ''
@@ -74,15 +80,46 @@ import { defineComponent } from "vue";
       iconClass: {
         type: String,
         default: ''
+      },
+      onClose: {
+        type: Function as PropType<() => void>,
+        required: true,
       }
     },
 
-    data() {
+    setup(props) {
+      const visible = ref(false);
+      let timer = null
+
+      function startTimer() {
+        if (props.duration > 0) {
+          timer = setTimeout(() => {
+            if (visible.value) {
+              close()
+            }
+          }, props.duration)
+        }
+      }
+
+      function clearTimer() {
+        clearTimeout(timer)
+        timer = null
+      }
+
+      function close() {
+        visible.value = false
+      }
+
+      onMounted(() => {
+        visible.value = true;
+        startTimer();
+      })
       return {
-        visible: false
-      };
+        visible
+      }
     },
 
+    // TODO setup
     computed: {
       customClass() {
         var classes = [];

@@ -48,7 +48,7 @@ export default defineComponent({
       this.$emit('click', evt);
     }
   },
-
+  emits: ['click'],
   props: {
     icon: String,
     disabled: Boolean,

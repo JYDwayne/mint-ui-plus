@@ -1,1 +1,1 @@
-export {default} from './src/toast.vue';
+export {default} from './src/toast';
