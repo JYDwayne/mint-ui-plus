@@ -43,12 +43,16 @@ import {defineComponent} from 'vue';
 export default defineComponent({
   name: 'mt-button',
 
-  methods: {
-    handleClick(evt) {
-      this.$emit('click', evt);
+  emits: ['click'],
+  setup(props, context) {
+    const handleClick = (evt): void => {
+      context.emit('click', evt);
+    }
+
+    return {
+      handleClick
     }
   },
-  emits: ['click'],
   props: {
     icon: String,
     disabled: Boolean,
