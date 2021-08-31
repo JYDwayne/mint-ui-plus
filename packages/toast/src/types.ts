@@ -10,3 +10,5 @@ export interface IToastOption {
     iconClass?: string,
     onClose?: () => void
 }
+
+export type ToastParams = IToastOption | string;

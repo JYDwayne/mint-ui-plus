@@ -67,7 +67,7 @@ import { defineComponent, ref, onMounted, PropType } from "vue";
       message: String,
       duration: {
         type: Number,
-        default: 3000
+        default: 1000
       },
       className: {
         type: String,
