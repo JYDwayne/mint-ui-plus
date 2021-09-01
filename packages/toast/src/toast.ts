@@ -1,11 +1,13 @@
 import ToastConstructor from './toast.vue';
-import { createVNode, render, isVNode } from 'vue'
-import type { ComponentPublicInstance } from 'vue'
-import type { IToastHandle, IToastOption } from './types';
+import type {ComponentPublicInstance} from 'vue'
+import {createVNode, isVNode, render, VNode} from 'vue'
+import {IToastHandle, IToastOption, ToastParams} from './types';
 
-// TODO 一次只显示一个toast
+let isRunning: boolean = false;
+let vmQueue: Array<VNode> = [];
+let runningToast: VNode;
 
-const Toast: IToastHandle = function (opts: IToastOption = {}) {
+const Toast: IToastHandle = function (opts: ToastParams = {} as ToastParams) {
   if (typeof opts === 'string') {
     opts = {
       message: opts
@@ -21,29 +23,45 @@ const Toast: IToastHandle = function (opts: IToastOption = {}) {
     }
   }
 
-  const container = document.createElement('div')
+
   const message = options.message
   const vm = createVNode(
-      ToastConstructor,
-      options,
-      isVNode(options.message) ? {default: () => message} : null,
+    ToastConstructor,
+    options,
+    isVNode(options.message) ? {default: () => message} : null,
   );
 
-  // clean message element preventing mem leak then the VNode should be collected by GC as well
-  vm.props.onDestroy = () => {
-    render(null, container);
+  vmQueue.push(vm);
+
+  function runToast(): VNode {
+    if (isRunning) return runningToast;
+    isRunning = true;
+    let tempRunningToast: VNode = vmQueue.shift() as VNode;
+    if (!tempRunningToast) {
+      isRunning = false;
+      return runningToast;
+    }
+
+    const container = document.createElement('div')
+
+    // clean message element preventing mem leak then the VNode should be collected by GC as well
+    tempRunningToast.props.onDestroy = () => {
+      render(null, container);
+      isRunning = false;
+      runningToast = runToast();
+    }
+    render(tempRunningToast, container);
+    document.body.appendChild(container.firstElementChild);
+    return tempRunningToast;
   }
 
-  render(vm, container)
-
-  document.body.appendChild(container.firstElementChild)
+  runningToast = runToast();
 
   return {
-    close: () => (vm.component.proxy as ComponentPublicInstance<{visible: boolean;}>).visible = false,
+    close: () => (runningToast.component.proxy as ComponentPublicInstance<{ visible: boolean; }>).visible = false,
   }
 
 } as any;
-
 
 
 export default Toast;

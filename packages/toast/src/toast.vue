@@ -58,7 +58,7 @@
 </style>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, PropType } from "vue";
+import { defineComponent, ref, onMounted, PropType, computed } from "vue";
 
   export default defineComponent({
     name: 'Toast',
@@ -67,7 +67,7 @@ import { defineComponent, ref, onMounted, PropType } from "vue";
       message: String,
       duration: {
         type: Number,
-        default: 3000
+        default: 1000
       },
       className: {
         type: String,
@@ -89,6 +89,21 @@ import { defineComponent, ref, onMounted, PropType } from "vue";
 
     setup(props) {
       const visible = ref(false);
+
+      const customClass = computed(() => {
+        const position: string = props.position;
+        const className: string = props.className;
+        let result: string = '';
+        if (position === 'top') {
+          result = 'is-placetop ';
+        } else if(position === 'bottom') {
+          result = 'is-placebottom ';
+        } else {
+          result = 'is-placemiddle ';
+        }
+        return result + className;
+      })
+
       let timer = null
 
       function startTimer() {
@@ -115,27 +130,8 @@ import { defineComponent, ref, onMounted, PropType } from "vue";
         startTimer();
       })
       return {
-        visible
-      }
-    },
-
-    // TODO setup
-    computed: {
-      customClass() {
-        var classes = [];
-        switch (this.position) {
-          case 'top':
-            classes.push('is-placetop');
-            break;
-          case 'bottom':
-            classes.push('is-placebottom');
-            break;
-          default:
-            classes.push('is-placemiddle');
-        }
-        classes.push(this.className);
-
-        return classes.join(' ');
+        visible,
+        customClass
       }
     }
   });
