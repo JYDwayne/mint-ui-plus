@@ -18,5 +18,15 @@
                 "icon": "cell"
             }
         ]
-    }
+    },
+    {
+        "title": "Form Components",
+        "list": [
+          {
+            "path": "/switch",
+            "name": "Switch",
+            "icon": "switch"
+          }
+        ]
+      }
 ]
