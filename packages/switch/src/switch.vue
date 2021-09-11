@@ -17,7 +17,7 @@
  * @example
  * <mt-switch v-model="value"></mt-switch>
  */
-import { defineComponent, ref, onMounted, PropType, computed } from "vue";
+import { defineComponent,computed } from "vue";
 
 export default defineComponent({
   name: 'mt-switch',
@@ -30,17 +30,16 @@ export default defineComponent({
     }
   },
   emits: ['update:modelValue', 'change', 'input'],
-  setup(props) {
-  },
-  computed: {
-    currentValue: {
-      get() {
-        return this.modelValue;
-      },
-      set(val) {
-        this.$emit('update:modelValue', val);
-      }
-    }
+  setup(props, {emit}) {
+    const me = this
+    const currentValue = computed({
+        get: () => props.modelValue,
+        set: (val) => {
+            console.log(val)  
+            emit('update:modelValue', val)
+        }
+    }) 
+    return {currentValue } 
   }
 });
 </script>
