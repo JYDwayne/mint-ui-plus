@@ -35,7 +35,6 @@ export default defineComponent({
     const currentValue = computed({
         get: () => props.modelValue,
         set: (val) => {
-            console.log(val)  
             emit('update:modelValue', val)
         }
     }) 
